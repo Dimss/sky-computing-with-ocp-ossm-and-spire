@@ -1,4 +1,4 @@
-source "$(dirname "$0")/../01-install-ztwim/01-define-exports.sh"
+source "$(dirname "$0")/../01/01-define-exports.sh"
 export OSSM_CNI=istio-cni
 export EXTRA_ROOT_CA="$(oc get secret oidc-serving-cert \
                          -n ${ZTWIM_NS} -o json | \

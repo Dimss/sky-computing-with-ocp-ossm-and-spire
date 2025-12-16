@@ -1,0 +1,7 @@
+source "$(dirname "$0")/../01/01-define-exports.sh"
+source "$(dirname "$0")/../02/01-define-exports.sh"
+
+export CA_CN="Sky Computing Lab"
+export CN_NODE_1="mesh-node-1"
+export CERTS_DIR="$(dirname "$0")/certs"
+export NEW_ATTESTOR='{"x509pop": {"plugin_data": {"ca_bundle_path": "/tmp/x509pop-ca/ca.crt.pem"}}}'
