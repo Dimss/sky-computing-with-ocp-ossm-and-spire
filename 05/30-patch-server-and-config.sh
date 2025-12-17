@@ -24,3 +24,7 @@ jq --argjson new "$NEW_ATTESTOR" \
     else .plugins.NodeAttestor += [$new]
     end | tojson)' | \
 kubectl apply -f -
+
+
+kubectl rollout restart statefulset spire-server -n "${ZTWIM_NS}"
+kubectl rollout status statefulset/spire-server -n "${ZTWIM_NS}" --timeout=300s

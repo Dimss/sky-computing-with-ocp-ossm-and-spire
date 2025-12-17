@@ -34,8 +34,9 @@
 	04/30-envoy-filter.sh
 	04/40-make-http-call.sh
 
-
-
 .PHONY: 05
 05:
 	05/10-certs-gen.sh
+	05/20-create-x509pop-server-secret.sh
+	05/30-patch-server-and-config.sh
+	05/40-get-trust-bundle.sh

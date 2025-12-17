@@ -27,4 +27,6 @@ spec:
   jwtIssuer: https://oidc-discovery.$TRUST_DOMAIN
 EOF
 
+kubectl rollout restart statefulset/spire-server -n "${ZTWIM_NS}"
+
 kubectl rollout status statefulset/spire-server -n "${ZTWIM_NS}" --timeout=300s
