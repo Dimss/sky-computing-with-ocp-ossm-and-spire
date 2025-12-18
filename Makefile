@@ -40,3 +40,5 @@
 	05/20-create-x509pop-server-secret.sh
 	05/30-patch-server-and-config.sh
 	05/40-get-trust-bundle.sh
+	05/50-route-for-spire.sh
+
