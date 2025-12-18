@@ -3,3 +3,6 @@
 chain.pem
 05/certs/*
 !05/certs/agent.cnf
+05/data/*
+!05/data/agent.conf
+.srl
