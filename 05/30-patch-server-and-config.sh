@@ -17,6 +17,7 @@ spec:
 '
 
 kubectl get configmap spire-server -n "${ZTWIM_NS}" -o json | \
+
 jq --argjson new "$NEW_ATTESTOR" \
    '.data["server.conf"] |= (fromjson |
     if (.plugins.NodeAttestor | any(has("x509pop")))
@@ -27,4 +28,5 @@ kubectl apply -f -
 
 
 kubectl rollout restart statefulset spire-server -n "${ZTWIM_NS}"
+
 kubectl rollout status statefulset/spire-server -n "${ZTWIM_NS}" --timeout=300s

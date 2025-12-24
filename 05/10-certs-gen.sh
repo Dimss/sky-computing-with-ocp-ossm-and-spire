@@ -1,5 +1,7 @@
 source "$(dirname "$0")/01-define-exports.sh"
 
+mkdir -p "${CERTS_DIR}"
+
 openssl genpkey \
    -algorithm RSA \
    -out "${CERTS_DIR}/ca.key.pem"
@@ -22,6 +24,6 @@ openssl x509 -req -days 365 \
  -CA "${CERTS_DIR}/ca.crt.pem" \
  -CAkey "${CERTS_DIR}/ca.key.pem" \
  -CAcreateserial -out "${CERTS_DIR}/${LEGACY_DB_SRV}.crt.pem" \
- -extfile "$(dirname "$0")/certs/agent.cnf" \
+ -extfile <(printf "[v3_req]\nbasicConstraints=CA:FALSE\nkeyUsage=critical,digitalSignature,keyEncipherment\nextendedKeyUsage=clientAuth,serverAuth") \
  -extensions v3_req
  

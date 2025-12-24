@@ -1,6 +1,7 @@
 .PHONY: 01
 01:
 	01/10-install-ztwim-operator.sh
+	01/11-ztwim-cr.sh
 	01/20-install-spire-server.sh
 	01/30-install-spire-agent.sh
 	01/40-patch-spire-agent-config.sh

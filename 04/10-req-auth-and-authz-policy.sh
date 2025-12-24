@@ -1,5 +1,5 @@
 source "$(dirname "$0")/01-define-exports.sh"
-
+export JWT_ISSUER="https://oidc-discovery.$(oc get ingresses.config/cluster -o jsonpath={.spec.domain})"
 cat <<EOF | oc apply -f -
 apiVersion: security.istio.io/v1
 kind: RequestAuthentication
@@ -11,7 +11,7 @@ spec:
     matchLabels:
       app: httpbin
   jwtRules:
-    - issuer: "https://oidc-discovery.${TRUST_DOMAIN}"
+    - issuer: "${JWT_ISSUER}"
       jwksUri: https://spire-spiffe-oidc-discovery-provider.${ZTWIM_NS}.svc/keys
       audiences:
       - sky-computing-demo
@@ -29,5 +29,5 @@ spec:
   rules:
     - from:
         - source:
-            requestPrincipals: ["https://oidc-discovery.$TRUST_DOMAIN/*"]
+            requestPrincipals: ["${JWT_ISSUER}/*"]
 EOF

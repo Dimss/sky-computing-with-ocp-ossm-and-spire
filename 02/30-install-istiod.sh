@@ -23,7 +23,7 @@ ${EXTRA_ROOT_CA}
       templates:
         spire: |
           spec:
-            containers:
+            initContainers:
             - name: istio-proxy
               volumeMounts:
               - name: workload-socket
@@ -31,6 +31,7 @@ ${EXTRA_ROOT_CA}
                 readOnly: true
             - name: envoy-jwt-auth-helper
               image: dimssss/envoy-jwt-auth-helper:latest
+              restartPolicy: Always
               env:
               - name: SPIRE_ENVOY_JWT_HELPER_AUDIENCE
                 valueFrom:

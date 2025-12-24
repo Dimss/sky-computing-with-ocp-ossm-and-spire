@@ -8,23 +8,28 @@ metadata:
   annotations:
     ztwim.openshift.io/create-only: "true"
 spec:
-  trustDomain: $TRUST_DOMAIN
-  clusterName: spiffe-eval
+  logLevel: "info"
+  logFormat: "text"
+  jwtIssuer: $JWT_ISSUER
+  caValidity: "24h"
+  defaultX509Validity: "1h"
+  defaultJWTValidity: "5m"
+  jwtKeyType: "rsa-2048"
   caSubject:
-    commonName: spiffe-eval
     country: "US"
-    organization: "RH"
+    organization: "Sky Computing Corporation"
+    commonName: "SPIRE Server CA"
   persistence:
-    type: pvc
     size: "5Gi"
-    accessMode: ReadWriteOnce
+    accessMode: "ReadWriteOnce"
   datastore:
-    databaseType: sqlite3
+    databaseType: "sqlite3"
     connectionString: "/run/spire/data/datastore.sqlite3"
+    tlsSecretName: ""
     maxOpenConns: 100
-    maxIdleConns: 2
-    connMaxLifetime: 3600
-  jwtIssuer: https://oidc-discovery.$TRUST_DOMAIN
+    maxIdleConns: 10
+    connMaxLifetime: 0
+    disableMigration: "false"
 EOF
 
 kubectl rollout restart statefulset/spire-server -n "${ZTWIM_NS}"

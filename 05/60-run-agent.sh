@@ -31,11 +31,14 @@ plugins {
 }
 EOF
 
+podman pod rm spire-agent-envoy-pod
+
+podman volume rm spire-socket
 
 podman pod create \
   --name spire-agent-envoy-pod \
   --share pid,net,ipc,uts \
-  -p 8443:8443
+  -p 5432:5432
 
 podman volume create spire-socket
 
@@ -50,5 +53,15 @@ podman run --pod spire-agent-envoy-pod  \
   -v spire-socket:/tmp/spire-agent \
   -v "$(pwd)/config.yaml":/etc/envoy/envoy.yaml \
   docker.io/envoyproxy/envoy:v1.36.2 \
-  -c /etc/envoy/envoy.yaml
+  -c /etc/envoy/envoy.yaml \
+  --component-log-level upstream:debug,connection:debug,filter:debug
+
+podman run --pod spire-agent-envoy-pod \
+   -e POSTGRES_PASSWORD=test \
+   -e PGPORT=7432 \
+   postgres:16.9
+
+
+podman run --name some-postgres -e POSTGRES_PASSWORD=test postgres:16.9
+
 

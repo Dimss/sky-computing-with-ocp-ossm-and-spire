@@ -1,7 +1,6 @@
 node:
   id: "pg-reverse-proxy"
   cluster: "envoy-cluster-with-spire"
-
 static_resources:
   listeners:
     - name: ingress_postgres_mtls
