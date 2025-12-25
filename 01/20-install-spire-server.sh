@@ -5,8 +5,6 @@ apiVersion: operator.openshift.io/v1alpha1
 kind: SpireServer
 metadata:
   name: cluster
-  annotations:
-    ztwim.openshift.io/create-only: "true"
 spec:
   logLevel: "info"
   logFormat: "text"
